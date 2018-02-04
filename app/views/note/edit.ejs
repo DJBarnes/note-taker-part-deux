@@ -6,8 +6,9 @@
       <%- include('../partials/errors', {errors: errors}); %>
       <%- include('../partials/messages', {messages: messages}); %>
       <h1>Note Taker</h1>
-      <form method="POST" action="/update" id="note-form"></form>
+      <form method="POST" action="/update" id="note-form">
         <%- include('create_edit', {note: note}); %>
+        <input type="submit" class="btn btn-success" value="Save" />
       </form>
     </div>
     <%- include('../partials/scripts'); %>
