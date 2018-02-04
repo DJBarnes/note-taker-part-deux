@@ -5,12 +5,30 @@
     <div class="container">
       <%- include('../partials/errors', {errors: errors}); %>
       <%- include('../partials/messages', {messages: messages}); %>
-      <h1>Note Taker</h1>
-      <form method="POST" action="/update" id="note-form">
+      <div class="row justify-content-start">
+        <div class="col-6">
+          <a href="/" class="btn btn-secondary float-left back-chevron"><</a>
+          <h1>Note Taker</h1>
+        </div>
+      </div>
+      <form method="POST" action="/update/<%=note._id %>" id="note-form">
         <%- include('create_edit', {note: note}); %>
         <input type="submit" class="btn btn-success" value="Save" />
       </form>
+      <div class="row justify-content-start">
+        <div class="col-6">
+          <button id="destroy-button" class="btn btn-danger float-right" data-toggle="modal" data-target="#destroy-modal">Delete</button>
+          <form method="POST" action="/destroy/<%=note._id %>" id="note-destroy-form"></form>
+        </div>
+      </div>
     </div>
+    <%- include('../partials/modal', {modal: {
+      title: "Confim Deletion",
+      body: "Are you sure you want to delete this Note?",
+      buttonId: "note-destroy-button",
+      buttonClass: "btn-danger",
+      action: "Delete",
+    }}) %>
     <%- include('../partials/scripts'); %>
   </body>
 </html>

@@ -5,29 +5,36 @@
     <div class="container">
       <%- include('../partials/errors', {errors: errors}); %>
       <%- include('../partials/messages', {messages: messages}); %>
-      <h1>Note Taker</h1>
-      <hr>
-      <a href="create" class="btn btn-primary float-right">Add Note</a>
-      <% if (notes.length > 0) { %>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Subject</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% notes.forEach(function(note) { %>
-              <tr>
-                <td scope="row">
-                  <%=note.subject %>
-                </td>
-              </tr>
-            <% }); %>
-          </tbody>
-        </table>
-      <% } else { %>
-        <h3>There are currently no Notes to display!</h3>
-      <% } %>
+      <div class="row justify-content-start">
+        <div class="col-6">
+            <a href="create" class="btn btn-primary float-left back-chevron">+</a>
+          <h1 class="float-left">Note Taker</h1>
+        </div>
+      </div>
+      <div class="row justify-content-start">
+        <div class="col-6">
+          <% if (notes.length > 0) { %>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Subject</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% notes.forEach(function(note) { %>
+                  <tr class="clickRow" data-link="/edit/<%=note._id %>">
+                    <td scope="row">
+                      <%=note.subject %>
+                    </td>
+                  </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          <% } else { %>
+            <h3>There are currently no Notes to display!</h3>
+          <% } %>
+        </div>
+      </div>
     </div>
     <%- include('../partials/scripts'); %>
   </body>

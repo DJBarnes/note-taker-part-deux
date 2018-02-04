@@ -6,7 +6,9 @@ exports.index = function (req, res) {
 
     Note.find({}, function(err, notes) {
         if (err) {
-            viewData.errors.push(err);
+            for (propertyName in err.errors) {
+                req.session.errors.push(err.errors[propertyName].message);
+            }
             viewData.notes = [];
         } else {
             viewData.notes = notes;
@@ -52,23 +54,33 @@ exports.edit = function (req, res) {
 
     var viewData = getViewDataObject(req);
 
-    res.render('note/edit', viewData);
+    var searchTerm = {
+        _id: req.params.id
+    }
+
+    Note.findOne(searchTerm, function(err, note) {
+        if (err) {
+            for (propertyName in err.errors) {
+                req.session.errors.push(err.errors[propertyName].message);
+            }
+            res.redirect('/');
+        } else {
+            viewData.note = note;
+            console.log(viewData);
+            res.render('note/edit', viewData);
+        }
+    });
 }
 
 exports.update = function (req, res) {
-    var errors = validateRequest(req);
 
-    if (errors) {
-        // redirect back with errors
-    }
-
-    // Add flash message
     req.session.messages.push("Note Updated Successfully!");
 
     res.redirect('/');
 }
 
 exports.destroy = function (req, res) {
+    
     req.session.messages.push("Note Deleted Successfully!");
 
     res.redirect('/');

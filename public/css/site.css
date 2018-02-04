@@ -1,1 +1,13 @@
 /* Add Site CSS Here */
+.clickRow {
+    cursor: pointer;
+}
+
+.back-chevron {
+    margin-top: 6px;
+    margin-right: 6px;
+}
+
+#destroy-button {
+    margin-top: -38px;
+}

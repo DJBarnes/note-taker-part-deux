@@ -5,7 +5,12 @@
     <div class="container">
       <%- include('../partials/errors', {errors: errors}); %>
       <%- include('../partials/messages', {messages: messages}); %>
-      <h1>Note Taker</h1>
+      <div class="row justify-content-start">
+        <div class="col-6">
+          <a href="/" class="btn btn-secondary float-left back-chevron"><</a>
+          <h1>Note Taker</h1>
+        </div>
+      </div>
       <form method="POST" action="/store" id="note-form">
         <%- include('create_edit', {note: note}); %>
         <input type="submit" class="btn btn-success" value="Save" />
