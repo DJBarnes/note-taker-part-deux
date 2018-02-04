@@ -132,10 +132,21 @@ exports.edit = function (req, res) {
         // Else, there were no problems. A Note was found and stored in
         // the note variable
         } else {
-            // Put the note into the viewData
-            viewData.note = note;
-            // Render out the edit view with the viewData
-            res.render('note/edit', viewData);
+            // If the note is null, we need to redirect back with an error.
+            // it is possible that the user is trying to edit one that does not
+            // exist. They could only do this if they manually entered the URL
+            // with an invalid id. A race condition could cause this too I suppose.
+            if (!note) {
+                // Add error to the session
+                req.session.errors.push("A Note with that id does not exist");
+                // Redirect back to the index page.
+                res.redirect('/');
+            } else {
+                // Put the note into the viewData
+                viewData.note = note;
+                // Render out the edit view with the viewData
+                res.render('note/edit', viewData);
+            }
         }
     });
 }
