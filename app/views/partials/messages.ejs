@@ -2,13 +2,19 @@
   <div class="row justify-content-start">
     <div class="col-6">
       <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <ul>
-          <% messages.forEach(function(message) { %>
-            <li>
-              <%=message %>
-            </li>
-          <% }) %>
-        </ul>
+        <% if (messages.length > 1) { %>
+          <ul>
+            <% messages.forEach(function(message) { %>
+              <li>
+                <%=message %>
+              </li>
+            <% }) %>
+          </ul>
+        <% } else { %>
+          <% if (messages.length > 0) { %>
+            <%=messages[0] %>
+          <% } %>
+        <% } %>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
