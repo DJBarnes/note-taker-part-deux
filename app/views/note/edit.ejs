@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+  <%- include('../partials/head'); %>
+  <body>
+    <div class="container">
+      <%- include('../partials/errors', {errors: errors}); %>
+      <%- include('../partials/messages', {messages: messages}); %>
+      <h1>Note Taker</h1>
+      <form method="POST" action="/update" id="note-form"></form>
+        <%- include('create_edit', {note: note}); %>
+      </form>
+    </div>
+    <%- include('../partials/scripts'); %>
+  </body>
+</html>

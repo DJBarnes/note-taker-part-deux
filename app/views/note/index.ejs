@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <%- include('../partials/head'); %>
+  <body>
+    <div class="container">
+      <%- include('../partials/errors', {errors: errors}); %>
+      <%- include('../partials/messages', {messages: messages}); %>
+      <h1>Note Taker</h1>
+      <a href="create" class="btn btn-primary pull-right" />
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Subject</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% notes.forEach(function(note) { %>
+            <tr>
+              <td scope="row">
+                <%=note.subject %>
+              </td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+    <%- include('../partials/scripts'); %>
+  </body>
+</html>
