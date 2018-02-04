@@ -4,7 +4,9 @@ exports.index = function (req, res) {
 
     var viewData = getViewDataObject(req);
 
-    res.render('index', viewData);
+    viewData.notes = [];
+
+    res.render('note/index', viewData);
 
 };
 
@@ -12,7 +14,7 @@ exports.create = function (req, res) {
 
     var viewData = getViewDataObject(req);
 
-    res.render('create', viewData);
+    res.render('note/create', viewData);
 }
 
 
@@ -46,7 +48,7 @@ exports.edit = function (req, res) {
 
     var viewData = getViewDataObject(req);
 
-    res.render('edit', viewData);
+    res.render('note/edit', viewData);
 }
 
 exports.update = function (req, res) {
@@ -71,13 +73,22 @@ exports.destroy = function (req, res) {
 // Returns the default viewData object that will be used when
 // rendering out the view.
 var getViewDataObject = function (req) {
+
+    var messages = req.session.messages;
+    var errors = req.session.errors;
+
+    messages = (messages) ? messages : [];
+    errors = (errors) ? errors : [];
+
     viewData = {
-        messages: req.session.messages,
-        errors: req.session.errors
+        messages: messages,
+        errors: errors
     };
 
     req.session.messages = [];
     req.session.errors = [];
+
+    return viewData;
 };
 
 // Method to validate the request and ensure that all fields were filled out.
