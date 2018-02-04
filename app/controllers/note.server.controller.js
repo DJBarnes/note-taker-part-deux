@@ -74,16 +74,49 @@ exports.edit = function (req, res) {
 
 exports.update = function (req, res) {
 
-    req.session.messages.push("Note Updated Successfully!");
+    Note.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {
+            runValidators: true
+        },
+        function(err) {
+            console.log(err);
+        if (err) {
+            for (propertyName in err.errors) {
+                req.session.errors.push(err.errors[propertyName].message);
+                req.session[propertyName + 'Class'] = 'is-invalid';
+            }
+            req.session.note = new Note(req.body);
+            res.redirect('/edit/' + req.params.id);
+        } else {
 
-    res.redirect('/');
+            req.session.messages.push("Note Updated Successfully!");
+
+            res.redirect('/');
+
+        }
+
+    });
 }
 
 exports.destroy = function (req, res) {
     
-    req.session.messages.push("Note Deleted Successfully!");
+    Note.deleteOne({_id:req.params.id}, function(err) {
+        if (err) {
+            for (propertyName in err.errors) {
+                req.session.errors.push(err.errors[propertyName].message);
+            }
+            res.redirect('/edit/' + req.params.id);
+        } else {
 
-    res.redirect('/');
+            req.session.messages.push("Note Deleted Successfully!");
+
+            res.redirect('/');
+
+        }
+
+    });
 }
 
 // Returns the default viewData object that will be used when
