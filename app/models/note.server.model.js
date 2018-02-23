@@ -8,6 +8,10 @@ var mongoose = require('mongoose'),
 // It includes 2 fields: subject, and body.
 // Both are required with a minlength of 1.
 var NoteSchema = new Schema({
+    user_id: {
+        type: String,
+        required: true
+    },
     subject: {
         type: String,
         required: true,

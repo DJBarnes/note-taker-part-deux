@@ -6,6 +6,8 @@ var config = require('./config'),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
     session = require('express-session');
+    flash = require('connect-flash'),
+    passport = require('passport');
 
 // Create the express app
 module.exports = function () {
@@ -40,9 +42,17 @@ module.exports = function () {
     app.set('views', './app/views');
     app.set('view engine', 'ejs');
 
+    // Add the flash module
+    app.use(flash());
+
+    // Configure passport
+    app.use(passport.initialize());
+    app.use(passport.session());
+
     // Load the app routes file
     // Other route files can be registered here if needed.
     require('../app/routes/note.server.routes.js')(app);
+    require('../app/routes/user.server.routes.js')(app);
 
     // Configure default public directory
     app.use(express.static('./public'));

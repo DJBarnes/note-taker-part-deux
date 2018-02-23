@@ -9,6 +9,8 @@ module.exports = function () {
     // Load any mongoose models that we want to use in this app
     // Load the Note Model
     require('../app/models/note.server.model');
+    // Load the User Model
+    require('../app/models/user.server.model');
 
     // Return the created db
     return db;
